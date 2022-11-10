@@ -19,7 +19,7 @@ class StreamFile
 
     public function tellTheLineItReadsFrom(): self
     {
-        echo ftell($this->handle) ." Line.";
+        echo ftell($this->handle) . " Line.";
         return $this;
     }
 
@@ -35,7 +35,9 @@ class StreamFile
 
     protected function setHandle($filePath, $mode): self
     {
-        $this->handle = $this->openFile($filePath, $mode);
+        if (!($this->handle = $this->openFile($filePath, $mode))) {
+            die("Could not open this stream.");
+        };
         return $this;
     }
 
@@ -69,7 +71,9 @@ class StreamFile
 
     public function closeFile($filePath): self
     {
-        fclose($filePath);
+        if (!fclose($filePath)) {
+            die("Could not close this file.");
+        };
         return $this;
     }
 
